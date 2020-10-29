@@ -1,5 +1,5 @@
 import { ChevronRight } from "@styled-icons/feather";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Link from "next/link";
 
 type Props = {
@@ -7,11 +7,26 @@ type Props = {
 };
 
 const Header: FC<Props> = ({ onDarkBackground }) => {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleWindowScroll: EventListener = () => {
+      const scrollPosition = window.scrollY;
+      setScrolled(scrollPosition > 80);
+    };
+    window.addEventListener("scroll", handleWindowScroll);
+    return () => {
+      window.removeEventListener("scroll", handleWindowScroll);
+    };
+  }, [scrolled]);
+
   return (
     <nav
-      className={`fixed top-0 inset-x-0 z-10 bg-transparent h-20 flex items-stretch ${
-        onDarkBackground ? "text-white" : ""
-      }`}
+      className={`fixed top-0 inset-x-0 z-10 h-20 flex items-stretch ${
+        onDarkBackground && !scrolled ? "text-white" : ""
+      } ${
+        scrolled ? "bg-white shadow-lg" : "bg-transparent"
+      } transition-all duration-200`}
     >
       <div className="container flex items-center justify-between">
         <Link href="/">

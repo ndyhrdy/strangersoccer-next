@@ -1,3 +1,4 @@
+import { ArrowRight } from "@styled-icons/feather";
 import Link from "next/link";
 import Head from "../components/Head";
 
@@ -40,7 +41,7 @@ const Home = () => {
                 </a>
                 <Link href="/games">
                   <a className="inline-block bg-primary-600 hover:bg-primary-700 py-1 px-3 tracking-tight rounded-full font-bold">
-                    Browse Games
+                    Browse Games <ArrowRight size="14" strokeWidth="3" />
                   </a>
                 </Link>
               </div>

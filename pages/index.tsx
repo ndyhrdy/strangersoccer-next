@@ -1,17 +1,19 @@
 import { ArrowRight } from "@styled-icons/feather";
 import Link from "next/link";
 import Head from "../components/Head";
+import Header from "../components/Header";
 
 const Home = () => {
   return (
     <div className="font-sans">
       <Head title="Join Football, Soccer or Futsal Games in Singapore" />
+      <Header onDarkBackground />
       <main>
         <section
           className="pt-20 text-white bg-cover bg-no-repeat bg-center"
           style={{ backgroundImage: `url('/assets/home-cover.jpg')` }}
         >
-          <div className="container py-24">
+          <div className="container py-32">
             <div className="w-3/5">
               <h1 className="text-6xl font-bold tracking-tight leading-none mb-12">
                 Playing Football:

@@ -1,5 +1,5 @@
-import Base from "next/head";
 import { FC } from "react";
+import Base from "next/head";
 
 type Props = {
   title?: string;

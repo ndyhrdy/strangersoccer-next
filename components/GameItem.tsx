@@ -1,13 +1,23 @@
 import { ArrowRight } from "@styled-icons/feather";
-import Link from "next/link";
 import { FC } from "react";
-import { Game } from "../pages/games";
+import Link from "next/link";
+import { Game } from "../hooks/useFilteredGames";
 
 type Props = {
   game: Game;
 };
 
 const GameItem: FC<Props> = ({ game }) => {
+  let statusClassnames = "bg-gray-200 text-gray-700";
+  switch (game.status_for_mobile) {
+    case "Confirmed":
+      statusClassnames = "bg-green-200 text-green-600";
+      break;
+    case "Finalizing":
+      statusClassnames = "bg-blue-200 text-blue-600";
+      break;
+  }
+
   return (
     <>
       <div className="bg-white shadow-md mb-4 rounded-lg flex h-48 items-stretch relative transition-shadow duration-200 hover:shadow-xl">
@@ -18,14 +28,17 @@ const GameItem: FC<Props> = ({ game }) => {
         />
         <div className="flex-1 flex flex-col justify-between">
           <div className="px-4 py-4">
-            <p
-              className={`text-xl font-medium leading-tight tracking-tight mb-2 ${
-                game.ribbon_img.length > 0 ? "pr-24" : ""
-              }`}
-            >
+            <p className="text-xl font-medium leading-tight tracking-tight mb-1">
               {game.game_details}
             </p>
-            <p className="text-gray-700">{game.date}</p>
+            <p className="text-gray-700 mb-2">{game.date}</p>
+            <p>
+              <span
+                className={`inline-block rounded text-xs px-2 py-1 ${statusClassnames}`}
+              >
+                {game.status_for_mobile}
+              </span>
+            </p>
           </div>
           <div className="bg-gray-100 border-t px-4 py-2 flex items-center justify-between">
             <p className="text-primary-600 text-lg font-medium">

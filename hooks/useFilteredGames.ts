@@ -44,6 +44,7 @@ const useFilteredGames = (): {
   status: Status;
   filters: Filters;
   updateFilters: (key: string, value: any) => void;
+  reset: () => void;
 } => {
   const [filters, setFilters] = useState<Filters>({});
   const [games, setGames] = useState<Game[]>([]);
@@ -70,11 +71,22 @@ const useFilteredGames = (): {
     fetchGames();
   };
 
+  const handleReset = () => {
+    setFilters({});
+    fetchGames();
+  };
+
   useEffect(() => {
     fetchGames();
   }, [fetchGames]);
 
-  return { games, status, filters, updateFilters: handleUpdateFilters };
+  return {
+    games,
+    status,
+    filters,
+    updateFilters: handleUpdateFilters,
+    reset: handleReset,
+  };
 };
 
 export default useFilteredGames;

@@ -18,7 +18,7 @@ const daysOfWeek: DayOfWeek[] = [
 
 const GamesFilters: FC<Props> = ({ filters, onChange }) => {
   return (
-    <div className="shadow bg-white rounded sticky top-0">
+    <div className="shadow bg-white rounded">
       <div className="border-b px-4 py-2">
         <h4 className="font-medium text-gray-600 text-xs uppercase tracking-wider">
           Search Filters

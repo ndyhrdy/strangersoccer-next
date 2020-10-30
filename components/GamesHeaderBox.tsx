@@ -23,7 +23,7 @@ const GamesHeaderBox: FC<Props> = ({
   }
 
   return (
-    <div className="shadow bg-white py-4 px-4 mb-4 rounded">
+    <div className="shadow bg-white py-4 px-4 mb-4 rounded md:hidden">
       {(filters.daysOfWeek || []).map((dayOfWeek) => {
         return (
           <FilterItem

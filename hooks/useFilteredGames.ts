@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 export type Game = {
   game_details: string;
   date: string;
+  date_format: string;
+  start_time: string;
   game_id: string;
   status: string;
   final_price: string;

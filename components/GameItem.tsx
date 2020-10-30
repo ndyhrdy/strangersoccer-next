@@ -1,6 +1,7 @@
-import { ArrowRight, User } from "@styled-icons/feather";
+import { ArrowRight, Clock, User } from "@styled-icons/feather";
 import { FC } from "react";
 import Link from "next/link";
+import moment from "moment";
 import { Game } from "../hooks/useFilteredGames";
 
 type Props = {
@@ -18,6 +19,11 @@ const GameItem: FC<Props> = ({ game }) => {
       break;
   }
 
+  const withinTwelveHours = moment(
+    `${game.date_format} ${game.start_time}`,
+    "YYYY-MM-DD HH:mm:ss"
+  ).isBefore(moment().add(12, "hours"));
+
   return (
     <>
       <div className="bg-white shadow-md mb-4 rounded-lg flex h-48 items-stretch relative transition-shadow duration-200 hover:shadow-xl">
@@ -31,7 +37,22 @@ const GameItem: FC<Props> = ({ game }) => {
             <p className="text-xl font-medium leading-tight tracking-tight mb-1">
               {game.game_details}
             </p>
-            <p className="text-gray-700 mb-2">{game.date}</p>
+            <p className="text-gray-700 mb-2">
+              {game.date}{" "}
+              {withinTwelveHours && (
+                <span className="inline-flex items-center bg-orange-200 text-orange-600 text-xs rounded px-1">
+                  <Clock
+                    size="12"
+                    strokeWidth="3"
+                    className="mr-1 text-orange-500"
+                  />
+                  {moment(
+                    `${game.date_format} ${game.start_time}`,
+                    "YYYY-MM-DD HH:mm:ss"
+                  ).fromNow()}
+                </span>
+              )}
+            </p>
             <p>
               <span
                 className={`inline-block rounded text-xs px-2 py-1 ${statusClassnames}`}

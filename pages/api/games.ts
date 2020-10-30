@@ -28,7 +28,9 @@ export default (req, res) => {
 };
 
 const filterGames = (games, filters) => {
-  let filteredGames = [...games];
+  let filteredGames = [...games.filter(game => {
+    return moment(`${game.date_format} ${game.start_time}`, 'YYYY-MM-DD HH:mm:ss').isAfter(moment());
+  })];
   if (filters['days[]']) {
     filteredGames = filteredGames.filter(game => {
       if (typeof filters['days[]'] === 'string') {

@@ -24,7 +24,7 @@ const GamesHeaderBox: FC<Props> = ({
 
   return (
     <div className="shadow bg-white py-4 px-4 mb-4 rounded">
-      {(filters.dayOfWeek || []).map((dayOfWeek) => {
+      {(filters.daysOfWeek || []).map((dayOfWeek) => {
         return (
           <FilterItem
             key={dayOfWeek}
@@ -32,7 +32,7 @@ const GamesHeaderBox: FC<Props> = ({
             onRemove={() => {
               onChangeFilters(
                 "dayOfWeek",
-                filters.dayOfWeek.filter(
+                filters.daysOfWeek.filter(
                   (selectedDayOfWeek) => selectedDayOfWeek !== dayOfWeek
                 )
               );
@@ -57,6 +57,24 @@ const GamesHeaderBox: FC<Props> = ({
           />
         );
       })}
+      {(filters.gameDurations || []).map((gameDuration) => {
+        return (
+          <FilterItem
+            key={gameDuration.value}
+            label={gameDuration.label}
+            onRemove={() => {
+              onChangeFilters(
+                "gameDurations",
+                filters.gameDurations.filter(
+                  (selectedGameDuration) =>
+                    selectedGameDuration.value !== gameDuration.value
+                )
+              );
+            }}
+          />
+        );
+      })}
+
       <button
         className="inline-block mr-1 mb-1 py-2 px-3 text-sm text-primary-600 font-medium"
         onClick={onResetFilters}

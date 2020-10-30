@@ -35,9 +35,12 @@ export type DayOfWeek =
 
 export type PreferredTime = "Morning" | "Afternoon" | "Night";
 
+export type GameDuration = "1.0" | "2.0";
+
 export type Filters = {
-  dayOfWeek?: DayOfWeek[];
+  daysOfWeek?: DayOfWeek[];
   preferredTimes?: PreferredTime[];
+  gameDurations?: { label: string; value: GameDuration }[];
 };
 
 type Status = "idle" | "fetching" | "refreshing";

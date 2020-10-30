@@ -1,5 +1,10 @@
 import { FC } from "react";
-import { DayOfWeek, Filters, PreferredTime } from "../hooks/useFilteredGames";
+import {
+  DayOfWeek,
+  Filters,
+  GameDuration,
+  PreferredTime,
+} from "../hooks/useFilteredGames";
 
 type Props = {
   filters: Filters;
@@ -18,6 +23,11 @@ const daysOfWeek: DayOfWeek[] = [
 
 const preferredTimes: PreferredTime[] = ["Morning", "Afternoon", "Night"];
 
+const gameDurations: { label: string; value: GameDuration }[] = [
+  { label: "1 hour", value: "1.0" },
+  { label: "2 hours", value: "2.0" },
+];
+
 const GamesFilters: FC<Props> = ({ filters, onChange }) => {
   return (
     <div className="shadow bg-white rounded">
@@ -31,11 +41,11 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
           <h5 className="font-light text-gray-600 text-xs uppercase tracking-wider mb-2">
             Day of Week
           </h5>
-          <ul className="flex flex-wrap -mx-1">
+          <ul className="flex flex-wrap">
             {daysOfWeek.map((dayOfWeek) => {
-              const selected = filters.dayOfWeek?.includes(dayOfWeek);
+              const selected = filters.daysOfWeek?.includes(dayOfWeek);
               return (
-                <li key={dayOfWeek} className="w-1/2 px-1">
+                <li key={dayOfWeek} className="mr-2">
                   <button
                     className={`block w-full ${
                       selected
@@ -44,13 +54,13 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
                     } text-sm rounded mb-2 px-4 py-2`}
                     onClick={() => {
                       onChange(
-                        "dayOfWeek",
+                        "daysOfWeek",
                         selected
-                          ? filters.dayOfWeek.filter(
+                          ? filters.daysOfWeek.filter(
                               (selectedDayOfWeek) =>
                                 selectedDayOfWeek !== dayOfWeek
                             )
-                          : [...(filters.dayOfWeek || []), dayOfWeek]
+                          : [...(filters.daysOfWeek || []), dayOfWeek]
                       );
                     }}
                   >
@@ -89,6 +99,43 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
                     }}
                   >
                     {preferredTime}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </li>
+        <li className="px-4 mb-4">
+          <h5 className="font-light text-gray-600 text-xs uppercase tracking-wider mb-2">
+            Game Duration
+          </h5>
+          <ul className="flex flex-wrap">
+            {gameDurations.map((gameDuration) => {
+              const selected = filters.gameDurations
+                ?.map((selectedGameDuration) => selectedGameDuration.value)
+                .includes(gameDuration.value);
+              return (
+                <li key={gameDuration.value} className="mr-2">
+                  <button
+                    className={`block w-full ${
+                      selected
+                        ? "bg-primary-600 hover:bg-primary-700 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-600"
+                    } text-sm rounded mb-2 px-4 py-2`}
+                    onClick={() => {
+                      onChange(
+                        "gameDurations",
+                        selected
+                          ? filters.gameDurations.filter(
+                              (selectedGameDuration) =>
+                                selectedGameDuration.value !==
+                                gameDuration.value
+                            )
+                          : [...(filters.gameDurations || []), gameDuration]
+                      );
+                    }}
+                  >
+                    {gameDuration.label}
                   </button>
                 </li>
               );

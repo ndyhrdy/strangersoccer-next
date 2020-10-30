@@ -24,7 +24,7 @@ const GameItem: FC<Props> = ({ game }) => {
         <img
           src={game.game_img}
           alt={game.game_details}
-          className="w-48 object-cover rounded-l-lg"
+          className="w-40 object-cover rounded-l-lg"
         />
         <div className="flex-1 flex flex-col justify-between">
           <div className="px-4 py-4">
@@ -38,7 +38,10 @@ const GameItem: FC<Props> = ({ game }) => {
               >
                 {game.status_for_mobile}
               </span>{" "}
-              <span className="inline-block rounded text-xs px-2 py-1 bg-gray-200 text-gray-700">
+              <span
+                className="inline-block rounded text-xs px-2 py-1 bg-gray-200 text-gray-700"
+                title="Max Players"
+              >
                 <User size="12" strokeWidth="3" />{" "}
                 {game.player_count.split("/")[1]}
               </span>
@@ -46,14 +49,14 @@ const GameItem: FC<Props> = ({ game }) => {
           </div>
           <div className="bg-gray-100 border-t px-4 py-2 flex items-center justify-between">
             <p className="text-primary-600 text-lg font-medium">
-              S${game.price.split(".")[0]}
+              S${game.final_price.split(".")[0]}
               <span className="text-xs align-text-top pl-px">
-                {game.price.split(".")[1]}
+                {game.final_price.split(".")[1]}
               </span>
               <span className="text-gray-500 text-sm">/ pax</span>
             </p>
             <Link href={`/join/${game.game_id}`}>
-              <a className="bg-primary-600 hover:bg-primary-700 text-white rounded-full px-3 py-1 font-medium tracking-tight">
+              <a className="inline-block bg-primary-600 hover:bg-primary-700 text-white rounded-full px-3 py-1 font-medium tracking-tight">
                 Book <ArrowRight size="16" strokeWidth="3" />
               </a>
             </Link>

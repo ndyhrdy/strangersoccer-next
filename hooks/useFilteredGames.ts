@@ -6,7 +6,7 @@ export type Game = {
   date: string;
   game_id: string;
   status: string;
-  price: string;
+  final_price: string;
   player_count: string;
   match_status: string;
   game_img: string;
@@ -66,9 +66,15 @@ const useFilteredGames = (): {
 
   const fetchGames = useCallback(async () => {
     setStatus("fetching");
+    const params = {
+      days: filters.daysOfWeek,
+      preferred_time: filters.preferredTimes,
+      game_type: filters.categories?.map(category => category.value),
+      game_duration: filters.gameDurations?.map(duration => duration.value)
+    }
     try {
-      const { data: responseBody } = await Axios.get<GamesAPIResponse>("/api", {
-        params: { filename: "games.json" },
+      const { data: responseBody } = await Axios.get<GamesAPIResponse>("/api/games", {
+        params,
       });
       if (!responseBody.status) {
         throw new Error(responseBody.message);
@@ -79,11 +85,10 @@ const useFilteredGames = (): {
       console.log(error);
     }
     setStatus("idle");
-  }, []);
+  }, [filters]);
 
   const handleUpdateFilters = (key, value) => {
     setFilters({ ...filters, [key]: value });
-    fetchGames();
   };
 
   const handleReset = () => {
@@ -93,7 +98,7 @@ const useFilteredGames = (): {
 
   useEffect(() => {
     fetchGames();
-  }, [fetchGames]);
+  }, [fetchGames, filters]);
 
   return {
     games,

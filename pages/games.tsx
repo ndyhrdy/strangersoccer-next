@@ -32,7 +32,7 @@ const Games: FC = () => {
                 />
               </div>
             </div>
-            <div className="w-2/3 px-4">
+            <div className="w-2/3 px-4 pb-24">
               <div className="pt-24 sticky top-0 z-10">
                 <GamesHeaderBox
                   filters={filters}

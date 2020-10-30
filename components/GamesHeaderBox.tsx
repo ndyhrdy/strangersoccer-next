@@ -31,7 +31,7 @@ const GamesHeaderBox: FC<Props> = ({
             label={dayOfWeek}
             onRemove={() => {
               onChangeFilters(
-                "dayOfWeek",
+                "daysOfWeek",
                 filters.daysOfWeek.filter(
                   (selectedDayOfWeek) => selectedDayOfWeek !== dayOfWeek
                 )

@@ -40,6 +40,23 @@ const GamesHeaderBox: FC<Props> = ({
           />
         );
       })}
+      {(filters.categories || []).map((category) => {
+        return (
+          <FilterItem
+            key={category.value}
+            label={category.label}
+            onRemove={() => {
+              onChangeFilters(
+                "categories",
+                filters.categories.filter(
+                  (selectedCategory) =>
+                    selectedCategory.value !== category.value
+                )
+              );
+            }}
+          />
+        );
+      })}
       {(filters.preferredTimes || []).map((preferredTime) => {
         return (
           <FilterItem

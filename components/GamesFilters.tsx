@@ -1,13 +1,15 @@
 import { FC } from "react";
 import {
   DayOfWeek,
+  DynamicFilters,
   Filters,
   GameDuration,
   PreferredTime,
 } from "../hooks/useFilteredGames";
 
-type Props = {
+type GamesFiltersProps = {
   filters: Filters;
+  dynamicFilters?: DynamicFilters;
   onChange: (key: string, value: any) => void;
 };
 
@@ -28,7 +30,11 @@ const gameDurations: { label: string; value: GameDuration }[] = [
   { label: "2 hours", value: "2.0" },
 ];
 
-const GamesFilters: FC<Props> = ({ filters, onChange }) => {
+const GamesFilters: FC<GamesFiltersProps> = ({
+  dynamicFilters,
+  filters,
+  onChange,
+}) => {
   return (
     <div className="shadow bg-white rounded">
       <div className="border-b px-4 py-4">
@@ -51,7 +57,7 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
                       selected
                         ? "bg-primary-600 hover:bg-primary-700 text-white"
                         : "bg-gray-200 hover:bg-gray-300 text-gray-600"
-                    } text-sm rounded mb-2 px-4 py-2`}
+                    } text-sm rounded mb-2 px-2 py-1`}
                     onClick={() => {
                       onChange(
                         "daysOfWeek",
@@ -71,6 +77,44 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
             })}
           </ul>
         </li>
+        {!!dynamicFilters?.game_type && dynamicFilters.game_type.length > 0 && (
+          <li className="px-4 mb-4">
+            <h5 className="font-light text-gray-600 text-xs uppercase tracking-wider mb-2">
+              Category
+            </h5>
+            <ul className="flex flex-wrap">
+              {dynamicFilters.game_type.map((category) => {
+                const selected = filters.categories
+                  ?.map((selectedCategory) => selectedCategory.value)
+                  .includes(category.value);
+                return (
+                  <li key={category.value} className="mr-2">
+                    <button
+                      className={`block w-full ${
+                        selected
+                          ? "bg-primary-600 hover:bg-primary-700 text-white"
+                          : "bg-gray-200 hover:bg-gray-300 text-gray-600"
+                      } text-sm rounded mb-2 px-2 py-1`}
+                      onClick={() => {
+                        onChange(
+                          "categories",
+                          selected
+                            ? filters.categories.filter(
+                                (selectedCategory) =>
+                                  selectedCategory.value !== category.value
+                              )
+                            : [...(filters.categories || []), category]
+                        );
+                      }}
+                    >
+                      {category.label}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </li>
+        )}
         <li className="px-4 mb-4">
           <h5 className="font-light text-gray-600 text-xs uppercase tracking-wider mb-2">
             Preferred Time
@@ -85,7 +129,7 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
                       selected
                         ? "bg-primary-600 hover:bg-primary-700 text-white"
                         : "bg-gray-200 hover:bg-gray-300 text-gray-600"
-                    } text-sm rounded mb-2 px-4 py-2`}
+                    } text-sm rounded mb-2 px-2 py-1`}
                     onClick={() => {
                       onChange(
                         "preferredTimes",
@@ -121,7 +165,7 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
                       selected
                         ? "bg-primary-600 hover:bg-primary-700 text-white"
                         : "bg-gray-200 hover:bg-gray-300 text-gray-600"
-                    } text-sm rounded mb-2 px-4 py-2`}
+                    } text-sm rounded mb-2 px-2 py-1`}
                     onClick={() => {
                       onChange(
                         "gameDurations",

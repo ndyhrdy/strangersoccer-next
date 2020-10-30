@@ -7,7 +7,14 @@ import Header from "../components/Header";
 import useFilteredGames from "../hooks/useFilteredGames";
 
 const Games: FC = () => {
-  const { filters, games, reset, status, updateFilters } = useFilteredGames();
+  const {
+    dynamicFilters,
+    filters,
+    games,
+    reset,
+    status,
+    updateFilters,
+  } = useFilteredGames();
   return (
     <div className="font-sans bg-gray-100 min-h-screen">
       <Head title="Where to Play Futsal, Soccer or Football in Singapore" />
@@ -18,7 +25,11 @@ const Games: FC = () => {
           <div className="flex -mx-4">
             <div className="w-1/3 px-4">
               <div className="pt-24">
-                <GamesFilters filters={filters} onChange={updateFilters} />
+                <GamesFilters
+                  dynamicFilters={dynamicFilters}
+                  filters={filters}
+                  onChange={updateFilters}
+                />
               </div>
             </div>
             <div className="w-2/3 px-4">

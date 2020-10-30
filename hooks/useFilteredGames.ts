@@ -17,6 +17,7 @@ export type Game = {
 
 type GamesAPIResponse = APIResponse & {
   data: Game[];
+  dynamic_filters: DynamicFilters;
 };
 
 type APIResponse = {
@@ -40,7 +41,12 @@ export type GameDuration = "1.0" | "2.0";
 export type Filters = {
   daysOfWeek?: DayOfWeek[];
   preferredTimes?: PreferredTime[];
+  categories?: { label: string; value: string }[];
   gameDurations?: { label: string; value: GameDuration }[];
+};
+
+export type DynamicFilters = {
+  game_type?: { label: string; value: string }[];
 };
 
 type Status = "idle" | "fetching" | "refreshing";
@@ -49,9 +55,11 @@ const useFilteredGames = (): {
   games: Game[];
   status: Status;
   filters: Filters;
+  dynamicFilters: DynamicFilters;
   updateFilters: (key: string, value: any) => void;
   reset: () => void;
 } => {
+  const [dynamicFilters, setDynamicFilters] = useState<DynamicFilters>({});
   const [filters, setFilters] = useState<Filters>({});
   const [games, setGames] = useState<Game[]>([]);
   const [status, setStatus] = useState<Status>("idle");
@@ -66,6 +74,7 @@ const useFilteredGames = (): {
         throw new Error(responseBody.message);
       }
       setGames(responseBody.data);
+      setDynamicFilters(responseBody.dynamic_filters || {});
     } catch (error) {
       console.log(error);
     }
@@ -90,6 +99,7 @@ const useFilteredGames = (): {
     games,
     status,
     filters,
+    dynamicFilters,
     updateFilters: handleUpdateFilters,
     reset: handleReset,
   };

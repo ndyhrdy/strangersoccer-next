@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { DayOfWeek, Filters } from "../hooks/useFilteredGames";
+import { DayOfWeek, Filters, PreferredTime } from "../hooks/useFilteredGames";
 
 type Props = {
   filters: Filters;
@@ -16,16 +16,18 @@ const daysOfWeek: DayOfWeek[] = [
   "Sunday",
 ];
 
+const preferredTimes: PreferredTime[] = ["Morning", "Afternoon", "Night"];
+
 const GamesFilters: FC<Props> = ({ filters, onChange }) => {
   return (
     <div className="shadow bg-white rounded">
-      <div className="border-b px-4 py-2">
-        <h4 className="font-medium text-gray-600 text-xs uppercase tracking-wider">
+      <div className="border-b px-4 py-4">
+        <h4 className="font-medium text-gray-500 text-xs uppercase tracking-wider">
           Search Filters
         </h4>
       </div>
-      <ul>
-        <li className="px-4 py-4">
+      <ul className="py-4">
+        <li className="px-4 mb-4">
           <h5 className="font-light text-gray-600 text-xs uppercase tracking-wider mb-2">
             Day of Week
           </h5>
@@ -53,6 +55,40 @@ const GamesFilters: FC<Props> = ({ filters, onChange }) => {
                     }}
                   >
                     {dayOfWeek}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </li>
+        <li className="px-4 mb-4">
+          <h5 className="font-light text-gray-600 text-xs uppercase tracking-wider mb-2">
+            Preferred Time
+          </h5>
+          <ul className="flex flex-wrap">
+            {preferredTimes.map((preferredTime) => {
+              const selected = filters.preferredTimes?.includes(preferredTime);
+              return (
+                <li key={preferredTime} className="mr-2">
+                  <button
+                    className={`block w-full ${
+                      selected
+                        ? "bg-primary-600 hover:bg-primary-700 text-white"
+                        : "bg-gray-200 hover:bg-gray-300 text-gray-600"
+                    } text-sm rounded mb-2 px-4 py-2`}
+                    onClick={() => {
+                      onChange(
+                        "preferredTimes",
+                        selected
+                          ? filters.preferredTimes.filter(
+                              (selectedPreferredTime) =>
+                                selectedPreferredTime !== preferredTime
+                            )
+                          : [...(filters.preferredTimes || []), preferredTime]
+                      );
+                    }}
+                  >
+                    {preferredTime}
                   </button>
                 </li>
               );

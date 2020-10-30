@@ -9,11 +9,11 @@ import useFilteredGames from "../hooks/useFilteredGames";
 const Games: FC = () => {
   const { filters, games, reset, status, updateFilters } = useFilteredGames();
   return (
-    <div className="font-sans bg-gray-100">
+    <div className="font-sans bg-gray-100 min-h-screen">
       <Head title="Where to Play Futsal, Soccer or Football in Singapore" />
       <Header />
 
-      <section className="">
+      <section>
         <div className="container px-48">
           <div className="flex -mx-4">
             <div className="w-1/3 px-4">

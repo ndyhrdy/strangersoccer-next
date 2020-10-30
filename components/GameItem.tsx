@@ -1,4 +1,4 @@
-import { ArrowRight } from "@styled-icons/feather";
+import { ArrowRight, User } from "@styled-icons/feather";
 import { FC } from "react";
 import Link from "next/link";
 import { Game } from "../hooks/useFilteredGames";
@@ -37,6 +37,10 @@ const GameItem: FC<Props> = ({ game }) => {
                 className={`inline-block rounded text-xs px-2 py-1 ${statusClassnames}`}
               >
                 {game.status_for_mobile}
+              </span>{" "}
+              <span className="inline-block rounded text-xs px-2 py-1 bg-gray-200 text-gray-700">
+                <User size="12" strokeWidth="3" />{" "}
+                {game.player_count.split("/")[1]}
               </span>
             </p>
           </div>

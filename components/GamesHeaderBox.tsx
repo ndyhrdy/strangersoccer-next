@@ -26,24 +26,35 @@ const GamesHeaderBox: FC<Props> = ({
     <div className="shadow bg-white py-4 px-4 mb-4 rounded">
       {(filters.dayOfWeek || []).map((dayOfWeek) => {
         return (
-          <div
+          <FilterItem
             key={dayOfWeek}
-            className="inline-block mr-1 mb-1 py-2 px-3 rounded-full text-sm text-gray-700 font-medium bg-gray-200 hover:bg-gray-300"
-          >
-            {dayOfWeek}{" "}
-            <button
-              onClick={() => {
-                onChangeFilters(
-                  "dayOfWeek",
-                  filters.dayOfWeek.filter(
-                    (selectedDayOfWeek) => selectedDayOfWeek !== dayOfWeek
-                  )
-                );
-              }}
-            >
-              <X size="16" strokeWidth="2" />
-            </button>
-          </div>
+            label={dayOfWeek}
+            onRemove={() => {
+              onChangeFilters(
+                "dayOfWeek",
+                filters.dayOfWeek.filter(
+                  (selectedDayOfWeek) => selectedDayOfWeek !== dayOfWeek
+                )
+              );
+            }}
+          />
+        );
+      })}
+      {(filters.preferredTimes || []).map((preferredTime) => {
+        return (
+          <FilterItem
+            key={preferredTime}
+            label={preferredTime}
+            onRemove={() => {
+              onChangeFilters(
+                "preferredTimes",
+                filters.preferredTimes.filter(
+                  (selectedPreferredTime) =>
+                    selectedPreferredTime !== preferredTime
+                )
+              );
+            }}
+          />
         );
       })}
       <button
@@ -51,6 +62,22 @@ const GamesHeaderBox: FC<Props> = ({
         onClick={onResetFilters}
       >
         Clear all
+      </button>
+    </div>
+  );
+};
+
+type FilterItemProps = {
+  label: string;
+  onRemove: () => void;
+};
+
+const FilterItem: FC<FilterItemProps> = ({ label, onRemove }) => {
+  return (
+    <div className="inline-block mr-1 mb-1 py-2 px-3 rounded-full text-sm text-gray-700 font-medium bg-gray-200 hover:bg-gray-300">
+      {`${label} `}
+      <button onClick={onRemove}>
+        <X size="16" strokeWidth="2" />
       </button>
     </div>
   );

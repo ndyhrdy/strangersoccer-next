@@ -33,8 +33,11 @@ export type DayOfWeek =
   | "Saturday"
   | "Sunday";
 
+export type PreferredTime = "Morning" | "Afternoon" | "Night";
+
 export type Filters = {
   dayOfWeek?: DayOfWeek[];
+  preferredTimes?: PreferredTime[];
 };
 
 type Status = "idle" | "fetching" | "refreshing";

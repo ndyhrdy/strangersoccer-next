@@ -77,8 +77,9 @@ const GameItem: FC<Props> = ({ game }) => {
               <span className="text-gray-500 text-sm">/ pax</span>
             </p>
             <Link href={`/join/${game.game_id}`}>
-              <a className="inline-block bg-primary-600 hover:bg-primary-700 text-white rounded-full px-3 py-1 font-medium tracking-tight">
-                Book <ArrowRight size="16" strokeWidth="3" />
+              <a className="inline-block bg-primary-600 hover:bg-primary-700 text-white text-sm rounded-full px-3 py-1 font-medium tracking-tight">
+                See Details
+                <ArrowRight size="16" strokeWidth="3" />
               </a>
             </Link>
           </div>

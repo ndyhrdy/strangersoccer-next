@@ -29,7 +29,7 @@ export default (req, res) => {
 
 const filterGames = (games, filters) => {
   let filteredGames = [...games.filter(game => {
-    return moment(`${game.date_format} ${game.start_time}`, 'YYYY-MM-DD HH:mm:ss').isAfter(moment());
+    return moment(`${game.date_format} ${game.start_time}`, 'YYYY-MM-DD HH:mm:ss').isAfter(moment().add(1, 'hour'));
   })];
   if (filters['days[]']) {
     filteredGames = filteredGames.filter(game => {

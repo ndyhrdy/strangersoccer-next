@@ -12,7 +12,7 @@ export type Game = {
   player_count: string;
   match_status: string;
   game_img: string;
-  status_for_mobile: string;
+  status_for_mobile: "Pending" | "Finalizing" | "Confirmed" | "Full & Confirmed";
   ribbon_img: string;
   game_type_img: string;
 };
@@ -95,7 +95,6 @@ const useFilteredGames = (): {
 
   const handleReset = () => {
     setFilters({});
-    fetchGames();
   };
 
   useEffect(() => {

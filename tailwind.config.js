@@ -16,6 +16,7 @@ module.exports = {
         primary: { ...defaultTheme.colors.red },
       },
       fontFamily: { sans: ["Inter", ...defaultTheme.fontFamily.sans] },
+      maxHeight: { 0: 0 },
     },
   },
   variants: {},

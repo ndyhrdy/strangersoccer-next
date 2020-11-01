@@ -22,7 +22,7 @@ const Header: FC<Props> = ({ onDarkBackground }) => {
 
   return (
     <nav
-      className={`fixed top-0 inset-x-0 z-10 h-20 flex items-stretch ${
+      className={`fixed top-0 inset-x-0 z-20 h-20 flex items-stretch ${
         onDarkBackground && !scrolled ? "text-white" : ""
       } ${
         scrolled ? "bg-white shadow-lg" : "bg-transparent"
